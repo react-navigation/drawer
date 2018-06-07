@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-import DrawerLayout from 'react-native-drawer-layout-polyfill';
+import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 
 import DrawerSidebar from './DrawerSidebar';
 import DrawerActions from '../routers/DrawerActions';
@@ -131,6 +131,12 @@ export default class DrawerView extends React.PureComponent {
             ? DrawerLayout.positions.Right
             : DrawerLayout.positions.Left
         }
+        /* props specific to react-native-gesture-handler/DrawerLayout */
+        drawerType={this.props.navigationConfig.drawerType}
+        edgeWidth={this.props.navigationConfig.edgeWidth}
+        hideStatusBar={this.props.navigationConfig.hideStatusBar}
+        statusBarAnimation={this.props.navigationConfig.statusBarAnimation}
+        overlayColor={this.props.navigationConfig.overlayColor}
       >
         <DrawerScreen
           screenProps={this.props.screenProps}
