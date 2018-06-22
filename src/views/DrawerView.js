@@ -1,9 +1,10 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-import DrawerLayout from 'react-native-drawer-layout-polyfill';
 import { SceneView } from 'react-navigation';
+import DrawerLayout from 'react-native-drawer-layout-polyfill';
 
 import DrawerSidebar from './DrawerSidebar';
+import DrawerLayoutControlled from './DrawerLayoutControlled';
 import DrawerActions from '../routers/DrawerActions';
 
 /**
@@ -20,63 +21,6 @@ export default class DrawerView extends React.PureComponent {
   componentDidMount() {
     Dimensions.addEventListener('change', this._updateWidth);
   }
-
-  componentDidUpdate(prevProps) {
-    const { isDrawerOpen, key } = this.props.navigation.state;
-    const prevKey = prevProps.navigation.state.key;
-    const wasDrawerOpen = prevProps.navigation.state.isDrawerOpen;
-    const shouldOpen = this._shouldOpen(isDrawerOpen, wasDrawerOpen);
-    const shouldClose =
-      this._shouldClose(isDrawerOpen, wasDrawerOpen) || key !== prevKey;
-
-    if (shouldOpen) {
-      this._drawerState = 'opening';
-      this._drawer.openDrawer();
-    } else if (shouldClose) {
-      this._drawerState = 'closing';
-      this._drawer.closeDrawer();
-    }
-  }
-
-  componentWillUnmount() {
-    Dimensions.removeEventListener('change', this._updateWidth);
-  }
-
-  _drawerState = 'closed';
-
-  _shouldOpen = (isDrawerOpen, wasDrawerOpen) => {
-    return (
-      isDrawerOpen &&
-      !wasDrawerOpen &&
-      (this._drawerState === 'closed' || this._drawerState === 'closing')
-    );
-  };
-
-  _shouldClose = (isDrawerOpen, wasDrawerOpen) => {
-    return (
-      wasDrawerOpen &&
-      !isDrawerOpen &&
-      (this._drawerState === 'open' || this._drawerState === 'opening')
-    );
-  };
-
-  _handleDrawerOpen = () => {
-    const { navigation } = this.props;
-    const { isDrawerOpen } = navigation.state;
-    if (!isDrawerOpen && this._drawerState === 'closed') {
-      navigation.dispatch({ type: DrawerActions.OPEN_DRAWER });
-    }
-    this._drawerState = 'open';
-  };
-
-  _handleDrawerClose = () => {
-    const { navigation } = this.props;
-    const { isDrawerOpen } = navigation.state;
-    if (isDrawerOpen && this._drawerState === 'open') {
-      navigation.dispatch({ type: DrawerActions.CLOSE_DRAWER });
-    }
-    this._drawerState = 'closed';
-  };
 
   _updateWidth = () => {
     const drawerWidth =
@@ -104,6 +48,10 @@ export default class DrawerView extends React.PureComponent {
     );
   };
 
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this._updateWidth);
+  }
+
   render() {
     const { state } = this.props.navigation;
     const activeKey = state.routes[state.index].key;
@@ -112,10 +60,18 @@ export default class DrawerView extends React.PureComponent {
     const { drawerLockMode } = descriptor.options;
 
     return (
-      <DrawerLayout
+      <DrawerLayoutControlled
         ref={c => {
           this._drawer = c;
         }}
+        navWantsDrawerOpen={this.props.navigation.state.isDrawerOpen}
+        navChangeRequested={this.props.navigation.state.requested}
+        notifyNavIsOpen={() =>
+          this.props.navigation.dispatch(DrawerActions.openDrawer({ notify: true }))
+        }
+        notifyNavIsClosed={() =>
+          this.props.navigation.dispatch(DrawerActions.closeDrawer({ notify: true }))
+        }
         drawerLockMode={
           drawerLockMode ||
           (this.props.screenProps && this.props.screenProps.drawerLockMode) ||
@@ -125,8 +81,6 @@ export default class DrawerView extends React.PureComponent {
           this.props.navigationConfig.drawerBackgroundColor
         }
         drawerWidth={this.state.drawerWidth}
-        onDrawerOpen={this._handleDrawerOpen}
-        onDrawerClose={this._handleDrawerClose}
         useNativeAnimations={this.props.navigationConfig.useNativeAnimations}
         renderNavigationView={this._renderNavigationView}
         drawerPosition={
@@ -140,7 +94,7 @@ export default class DrawerView extends React.PureComponent {
           screenProps={this.props.screenProps}
           component={descriptor.getComponent()}
         />
-      </DrawerLayout>
+      </DrawerLayoutControlled>
     );
   }
 }

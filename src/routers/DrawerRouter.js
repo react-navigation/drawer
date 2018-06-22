@@ -37,11 +37,13 @@ export default (routeConfigs, config = {}) => {
     },
 
     getStateForAction(action, state) {
+      console.log(action);
       // Set up the initial state if needed
       if (!state) {
         return {
           ...switchRouter.getStateForAction(action, undefined),
           isDrawerOpen: false,
+          requested: false,
         };
       }
 
@@ -54,6 +56,7 @@ export default (routeConfigs, config = {}) => {
           return {
             ...state,
             isDrawerOpen: false,
+            requested: action.notify !== true,
           };
         }
 
@@ -61,6 +64,7 @@ export default (routeConfigs, config = {}) => {
           return {
             ...state,
             isDrawerOpen: true,
+            requested: action.notify !== true,
           };
         }
 
@@ -68,6 +72,7 @@ export default (routeConfigs, config = {}) => {
           return {
             ...state,
             isDrawerOpen: !state.isDrawerOpen,
+            requested: action.notify !== true,
           };
         }
       }
@@ -87,6 +92,7 @@ export default (routeConfigs, config = {}) => {
           return {
             ...switchedState,
             isDrawerOpen: false,
+            requested: true,
           };
         }
 
