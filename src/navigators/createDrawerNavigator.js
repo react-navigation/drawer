@@ -24,6 +24,7 @@ const defaultContentComponent = props => (
 const DefaultDrawerConfig = {
   drawerWidth: () => {
     /*
+     * Drawer open/close speed Config
      * Default drawer width is screen width - header height
      * with a max width of 280 on mobile and 320 on tablet
      * https://material.io/guidelines/patterns/navigation-drawer.html
