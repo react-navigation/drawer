@@ -54,7 +54,9 @@ export type PropType = {
 
   // Properties not yet supported
   // onDrawerSlide?: Function
-  // drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open',
+  
+  // Partially supported
+  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open',
 };
 
 export type StateType = {
@@ -428,6 +430,11 @@ export default class DrawerLayout extends Component<PropType, StateType> {
   };
 
   render() {
+    // Disable the PanGestureHandler if drawer is locked from swiping
+    if (this.props.drawerLockMode && 
+      (this.props.drawerLockMode === 'locked-open' || this.props.drawerLockMode === 'locked-closed')) {
+      return this._renderDrawer()
+    }
     const { drawerShown, containerWidth } = this.state;
 
     const {
