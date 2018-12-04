@@ -14,7 +14,6 @@ const DrawerNavigatorItems = ({
   inactiveTintColor,
   inactiveBackgroundColor,
   getLabel,
-  getAccessibilityLabel,
   renderIcon,
   onItemPress,
   itemsContainerStyle,
@@ -34,17 +33,23 @@ const DrawerNavigatorItems = ({
         : inactiveBackgroundColor;
       const scene = { route, index, focused, tintColor: color };
       const icon = renderIcon(scene);
-      const label = getLabel(scene);
       const extraLabelStyle = focused ? activeLabelStyle : inactiveLabelStyle;
+      let label = getLabel(scene);
       let accessibilityLabel;
 
-      if (typeof getAccessibilityLabel === 'function') {
-        accessibilityLabel = getAccessibilityLabel(scene);
-      } else if (typeof label === 'string') {
+      if (typeof label === 'string') {
         accessibilityLabel = label;
+      } else if (
+        label !== null &&
+        typeof label === 'object' &&
+        typeof label.accessibilityLabel === 'string' &&
+        React.isValidElement(label.element)
+      ) {
+        label = label.element;
+        accessibilityLabel = label.accessibilityLabel;
       } else {
         throw new Error(
-          "getAccessibilityLabel must be a funcion returning a string if getLabel doesn't return a string"
+          'DrawerItems: prop getLabel must return a string or an object containing property `accessibilityLabel` (string) and `element` (JSX.Element)'
         );
       }
 
