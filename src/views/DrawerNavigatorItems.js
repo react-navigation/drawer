@@ -14,6 +14,7 @@ const DrawerNavigatorItems = ({
   inactiveTintColor,
   inactiveBackgroundColor,
   getLabel,
+  getAccessibilityLabel,
   renderIcon,
   onItemPress,
   itemsContainerStyle,
@@ -35,11 +36,23 @@ const DrawerNavigatorItems = ({
       const icon = renderIcon(scene);
       const label = getLabel(scene);
       const extraLabelStyle = focused ? activeLabelStyle : inactiveLabelStyle;
+      let accessibilityLabel;
+
+      if (typeof getAccessibilityLabel === 'function') {
+        accessibilityLabel = getAccessibilityLabel(scene);
+      } else if (typeof label === 'string') {
+        accessibilityLabel = label;
+      } else {
+        throw new Error(
+          "getAccessibilityLabel must be a funcion returning a string if getLabel doesn't return a string"
+        );
+      }
+
       return (
         <TouchableItem
           key={route.key}
           accessible
-          accessibilityLabel={label}
+          accessibilityLabel={accessibilityLabel}
           onPress={() => {
             onItemPress({ route, focused });
           }}
