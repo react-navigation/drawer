@@ -54,6 +54,7 @@ export type PropType = {
   hideStatusBar?: boolean,
   statusBarAnimation?: 'slide' | 'none' | 'fade',
   overlayColor: string,
+  drawerContainerStyle?: any,
   contentContainerStyle?: any,
 
   // Added in this fork, needs to be upstreamed
@@ -369,6 +370,7 @@ export default class DrawerLayout extends Component<PropType, StateType> {
       drawerWidth,
       drawerPosition,
       drawerType,
+      drawerContainerStyle,
       contentContainerStyle,
     } = this.props;
 
@@ -431,7 +433,7 @@ export default class DrawerLayout extends Component<PropType, StateType> {
         <Animated.View
           pointerEvents="box-none"
           accessibilityViewIsModal={drawerShown}
-          style={[styles.drawerContainer, drawerStyles]}>
+          style={[styles.drawerContainer, drawerStyles, drawerContainerStyle]}>
           <View style={[styles.drawer, dynamicDrawerStyles]}>
             {this.props.renderNavigationView(this._openValue)}
           </View>
