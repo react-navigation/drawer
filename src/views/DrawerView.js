@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { SceneView } from '@react-navigation/core';
-import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
+import { DrawerLayout } from 'react-native-gesture-handler/DrawerLayout';
 import { ScreenContainer } from 'react-native-screens';
 
 import DrawerActions from '../routers/DrawerActions';
