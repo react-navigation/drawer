@@ -23,6 +23,7 @@ const DrawerNavigatorItems = ({
   inactiveLabelStyle,
   iconContainerStyle,
   drawerPosition,
+  activeItemStyle
 }) => (
   <View style={[styles.container, itemsContainerStyle]}>
     {items.map((route, index) => {
@@ -36,6 +37,7 @@ const DrawerNavigatorItems = ({
       const label = getLabel(scene);
       const accessibilityLabel = typeof label === 'string' ? label : undefined;
       const extraLabelStyle = focused ? activeLabelStyle : inactiveLabelStyle;
+      const extraItemStyle = focused ? activeItemStyle : itemStyle;
       return (
         <TouchableItem
           key={route.key}
@@ -54,7 +56,7 @@ const DrawerNavigatorItems = ({
               vertical: 'never',
             }}
           >
-            <View style={[styles.item, itemStyle]}>
+            <View style={[styles.item, extraItemStyle]}>
               {icon ? (
                 <View
                   style={[
