@@ -132,7 +132,8 @@ export default class DrawerView extends React.PureComponent {
     return (
       <DrawerGestureContext.Provider value={this.drawerGestureRef}>
         <DrawerSidebar
-          screenProps={{...this.props.screenProps, drawerOpenProgress}}
+          screenProps={this.props.screenProps}
+          drawerOpenProgress={drawerOpenProgress}
           navigation={this.props.navigation}
           descriptors={this.props.descriptors}
           contentComponent={this.props.navigationConfig.contentComponent}
