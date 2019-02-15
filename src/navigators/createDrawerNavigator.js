@@ -10,13 +10,11 @@ import DrawerItems from '../views/DrawerNavigatorItems';
 // the base navigator props (navgiation, screenProps, etc)
 // and the view's props
 
-const defaultContentComponent = props => (
-  <ScrollView alwaysBounceVertical={false}>
+const defaultContentComponent = props => <ScrollView alwaysBounceVertical={false}>
     <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
       <DrawerItems {...props} />
     </SafeAreaView>
-  </ScrollView>
-);
+  </ScrollView>;
 
 const DefaultDrawerConfig = {
   drawerWidth: () => {
@@ -29,7 +27,7 @@ const DefaultDrawerConfig = {
     const smallerAxisSize = Math.min(height, width);
     const isLandscape = width > height;
     const isTablet = smallerAxisSize >= 600;
-    const appBarHeight = Platform.OS === 'ios' ? (isLandscape ? 32 : 44) : 56;
+    const appBarHeight = Platform.OS === 'ios' ? isLandscape ? 32 : 44 : 56;
     const maxWidth = isTablet ? 320 : 280;
 
     return Math.min(smallerAxisSize - appBarHeight, maxWidth);
@@ -42,7 +40,7 @@ const DefaultDrawerConfig = {
   drawerType: 'front',
   hideStatusBar: false,
   statusBarAnimation: 'slide',
-  overlayColor: 'black',
+  overlayColor: 'black'
 };
 
 const DrawerNavigator = (routeConfigs, config = {}) => {

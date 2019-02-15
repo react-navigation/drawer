@@ -11,19 +11,14 @@ import invariant from '../utils/invariant';
 class DrawerSidebar extends React.PureComponent {
   _getScreenOptions = routeKey => {
     const descriptor = this.props.descriptors[routeKey];
-    invariant(
-      descriptor.options,
-      'Cannot access screen descriptor options from drawer sidebar'
-    );
+    invariant(descriptor.options, 'Cannot access screen descriptor options from drawer sidebar');
     return descriptor.options;
   };
 
   _getLabel = ({ focused, tintColor, route }) => {
     const { drawerLabel, title } = this._getScreenOptions(route.key);
     if (drawerLabel) {
-      return typeof drawerLabel === 'function'
-        ? drawerLabel({ tintColor, focused })
-        : drawerLabel;
+      return typeof drawerLabel === 'function' ? drawerLabel({ tintColor, focused }) : drawerLabel;
     }
 
     if (typeof title === 'string') {
@@ -36,9 +31,7 @@ class DrawerSidebar extends React.PureComponent {
   _renderIcon = ({ focused, tintColor, route }) => {
     const { drawerIcon } = this._getScreenOptions(route.key);
     if (drawerIcon) {
-      return typeof drawerIcon === 'function'
-        ? drawerIcon({ tintColor, focused })
-        : drawerIcon;
+      return typeof drawerIcon === 'function' ? drawerIcon({ tintColor, focused }) : drawerIcon;
     }
     return null;
   };
@@ -47,9 +40,7 @@ class DrawerSidebar extends React.PureComponent {
     if (focused) {
       this.props.navigation.closeDrawer();
     } else {
-      this.props.navigation.dispatch(
-        NavigationActions.navigate({ routeName: route.routeName })
-      );
+      this.props.navigation.dispatch(NavigationActions.navigate({ routeName: route.routeName }));
     }
   };
 
@@ -60,24 +51,9 @@ class DrawerSidebar extends React.PureComponent {
     }
     const { state } = this.props.navigation;
     invariant(typeof state.index === 'number', 'should be set');
-    return (
-      <View style={[styles.container, this.props.style]}>
-        <ContentComponent
-          {...this.props.contentOptions}
-          navigation={this.props.navigation}
-          descriptors={this.props.descriptors}
-          items={state.routes}
-          activeItemKey={
-            state.routes[state.index] ? state.routes[state.index].key : null
-          }
-          screenProps={this.props.screenProps}
-          getLabel={this._getLabel}
-          renderIcon={this._renderIcon}
-          onItemPress={this._onItemPress}
-          drawerPosition={this.props.drawerPosition}
-        />
-      </View>
-    );
+    return <View style={[styles.container, this.props.style]}>
+        <ContentComponent {...this.props.contentOptions} navigation={this.props.navigation} descriptors={this.props.descriptors} items={state.routes} activeItemKey={state.routes[state.index] ? state.routes[state.index].key : null} screenProps={this.props.screenProps} getLabel={this._getLabel} renderIcon={this._renderIcon} onItemPress={this._onItemPress} drawerPosition={this.props.drawerPosition} />
+      </View>;
   }
 }
 
@@ -85,6 +61,6 @@ export default DrawerSidebar;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
