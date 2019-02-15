@@ -128,7 +128,7 @@ export default class DrawerView extends React.PureComponent {
     }
   };
 
-  _renderNavigationView = (drawerOpenProgress) => {
+  _renderNavigationView = drawerOpenProgress => {
     return (
       <DrawerGestureContext.Provider value={this.drawerGestureRef}>
         <DrawerSidebar
