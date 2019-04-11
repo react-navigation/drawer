@@ -1,16 +1,28 @@
 /* eslint-env jest */
 
-jest.mock('react-native-gesture-handler/DrawerLayout', () => {
-  const React = require('react');
-  const View = require.requireActual('View');
-  const DrawerLayout = React.forwardRef((props, ref) => (
-    <View {...props} ref={ref} />
-  ));
+import NativeModules from 'NativeModules';
 
-  DrawerLayout.positions = {
-    Left: 'left',
-    Right: 'right',
-  };
-
-  return DrawerLayout;
+Object.assign(NativeModules, {
+  RNGestureHandlerModule: {
+    attachGestureHandler: jest.fn(),
+    createGestureHandler: jest.fn(),
+    dropGestureHandler: jest.fn(),
+    updateGestureHandler: jest.fn(),
+    State: {},
+    Directions: {},
+  },
+  ReanimatedModule: {
+    createNode: jest.fn(),
+    configureProps: jest.fn(),
+    configureNativeProps: jest.fn(),
+    connectNodes: jest.fn(),
+    disconnectNodes: jest.fn(),
+    addListener: jest.fn(),
+    removeListeners: jest.fn(),
+  },
+  PlatformConstants: {
+    forceTouchAvailable: false,
+  },
 });
+
+jest.mock('react-native-reanimated');
