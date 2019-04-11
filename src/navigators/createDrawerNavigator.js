@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, Platform, ScrollView } from 'react-native';
 import { createNavigator } from '@react-navigation/core';
-import { SafeAreaView } from '@react-navigation/native';
+import SafeAreaView from 'react-native-safe-area-view';
 import DrawerRouter from '../routers/DrawerRouter';
 import DrawerView from '../views/DrawerView';
 import DrawerItems from '../views/DrawerNavigatorItems';

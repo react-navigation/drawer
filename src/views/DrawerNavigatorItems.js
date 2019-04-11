@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { SafeAreaView } from '@react-navigation/native';
+import SafeAreaView from 'react-native-safe-area-view';
 import TouchableItem from './TouchableItem';
 
 /**
@@ -28,9 +28,7 @@ const DrawerNavigatorItems = ({
     {items.map((route, index) => {
       const focused = activeItemKey === route.key;
       const color = focused ? activeTintColor : inactiveTintColor;
-      const backgroundColor = focused
-        ? activeBackgroundColor
-        : inactiveBackgroundColor;
+      const backgroundColor = focused ? activeBackgroundColor : inactiveBackgroundColor;
       const scene = { route, index, focused, tintColor: color };
       const icon = renderIcon(scene);
       const label = getLabel(scene);
@@ -44,33 +42,21 @@ const DrawerNavigatorItems = ({
           onPress={() => {
             onItemPress({ route, focused });
           }}
-          delayPressIn={0}
-        >
+          delayPressIn={0}>
           <SafeAreaView
             style={[{ backgroundColor }, styles.item, itemStyle]}
             forceInset={{
               [drawerPosition]: 'always',
               [drawerPosition === 'left' ? 'right' : 'left']: 'never',
               vertical: 'never',
-            }}
-          >
+            }}>
             {icon ? (
-              <View
-                style={[
-                  styles.icon,
-                  focused ? null : styles.inactiveIcon,
-                  iconContainerStyle,
-                ]}
-              >
+              <View style={[styles.icon, focused ? null : styles.inactiveIcon, iconContainerStyle]}>
                 {icon}
               </View>
             ) : null}
             {typeof label === 'string' ? (
-              <Text
-                style={[styles.label, { color }, labelStyle, extraLabelStyle]}
-              >
-                {label}
-              </Text>
+              <Text style={[styles.label, { color }, labelStyle, extraLabelStyle]}>{label}</Text>
             ) : (
               label
             )}
