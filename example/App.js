@@ -10,6 +10,7 @@ import { SimpleDrawer, SimpleDrawerUnmountInactive } from './src/SimpleDrawer';
 import { ParallaxDrawer } from './src/ParallaxDrawer';
 import StyledDrawer from './src/StyledDrawer';
 import GestureInteraction from './src/GestureInteraction';
+import HorizontalScroll from './src/HorizontalScroll';
 import RTLDrawer from './src/RTLDrawer';
 
 // I18nManager.forceRTL(false);
@@ -40,6 +41,11 @@ const data = [
     component: ParallaxDrawer,
     title: 'Basic Parallax Drawer',
     routeName: 'ParallaxDrawer',
+  },
+  {
+    component: HorizontalScroll,
+    title: 'Right drawer with horizontal ScrollView',
+    routeName: 'HorizontalScroll',
   },
 ];
 
