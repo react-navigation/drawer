@@ -6,7 +6,7 @@ import { Scene, Route } from '../types';
 
 export type Props = {
   items: Route[];
-  touchableType: 'highlight' | 'opacity';
+  touchableType?: 'opacity' | 'highlight';
   activeItemKey?: string | null;
   activeTintColor?: string;
   activeBackgroundColor?: string;
@@ -107,6 +107,7 @@ const DrawerNavigatorItems = ({
 
 /* Material design specs - https://material.io/guidelines/patterns/navigation-drawer.html#navigation-drawer-specs */
 DrawerNavigatorItems.defaultProps = {
+  touchableType: 'opacity',
   activeTintColor: '#2196f3',
   activeBackgroundColor: 'rgba(0, 0, 0, .04)',
   inactiveTintColor: 'rgba(0, 0, 0, .87)',
