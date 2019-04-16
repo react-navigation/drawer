@@ -6,6 +6,7 @@ import { Scene, Route } from '../types';
 
 export type Props = {
   items: Route[];
+  touchableType: 'highlight' | 'opacity';
   activeItemKey?: string | null;
   activeTintColor?: string;
   activeBackgroundColor?: string;
@@ -28,6 +29,7 @@ export type Props = {
  */
 const DrawerNavigatorItems = ({
   items,
+  touchableType,
   activeItemKey,
   activeTintColor,
   activeBackgroundColor,
@@ -59,6 +61,8 @@ const DrawerNavigatorItems = ({
       return (
         <TouchableItem
           key={route.key}
+          type={touchableType}
+          activeBackgroundColor={activeBackgroundColor}
           accessible
           accessibilityLabel={accessibilityLabel}
           onPress={() => {
