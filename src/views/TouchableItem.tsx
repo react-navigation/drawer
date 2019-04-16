@@ -10,9 +10,10 @@
 import * as React from 'react';
 import {
   Platform,
+  View,
   TouchableNativeFeedback,
   TouchableOpacity,
-  View,
+  TouchableHighlight,
   TouchableWithoutFeedback,
 } from 'react-native';
 
