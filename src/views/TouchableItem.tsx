@@ -56,6 +56,17 @@ export default class TouchableItem extends React.Component<Props> {
         </TouchableNativeFeedback>
       );
     }
+                                  
+     if(this.props.type === 'highlight') {
+      return (
+				<TouchableHighlight
+					{...this.props}
+					underlayColor={this.props.activeBackgroundColor}
+				>
+					{this.props.children}
+				</TouchableHighlight>
+			);
+    }
 
     return (
       <TouchableOpacity {...this.props}>{this.props.children}</TouchableOpacity>
