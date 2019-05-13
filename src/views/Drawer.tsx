@@ -243,7 +243,7 @@ export default class DrawerView extends React.PureComponent<Props> {
 
   private isStatusBarHidden: boolean = false;
 
-  private isSpringManuallyTriggered = new Value<number>(FALSE);
+  private isSpringManuallyTriggered = new Value<Binary>(FALSE);
 
   private transitionTo = (isOpen: number | Animated.Node<number>) => {
     const toValue = new Value(0);
