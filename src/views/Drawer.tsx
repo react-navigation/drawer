@@ -349,6 +349,7 @@ export default class DrawerView extends React.PureComponent<Props> {
     cond(
       eq(this.gestureState, State.ACTIVE),
       [
+        set(this.isSpringManuallyTriggered, FALSE),
         cond(this.isSwiping, NOOP, [
           // We weren't dragging before, set it to true
           set(this.isSwiping, TRUE),
@@ -397,7 +398,6 @@ export default class DrawerView extends React.PureComponent<Props> {
         ),
       ]
     ),
-    set(this.isSpringManuallyTriggered, FALSE),
     this.position,
   ]);
 
