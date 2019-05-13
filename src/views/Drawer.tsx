@@ -243,6 +243,8 @@ export default class DrawerView extends React.PureComponent<Props> {
 
   private isStatusBarHidden: boolean = false;
 
+  private isSpringManuallyTriggered = new Value<number>(FALSE);
+
   private transitionTo = (isOpen: number | Animated.Node<number>) => {
     const toValue = new Value(0);
     const frameTime = new Value(0);
@@ -366,31 +368,36 @@ export default class DrawerView extends React.PureComponent<Props> {
         set(this.touchX, 0),
         this.transitionTo(
           cond(
-            or(
-              and(
-                greaterThan(abs(this.gestureX), SWIPE_DISTANCE_MINIMUM),
-                greaterThan(abs(this.velocityX), this.swipeVelocityThreshold)
-              ),
-              greaterThan(abs(this.gestureX), this.swipeDistanceThreshold)
-            ),
+            this.isSpringManuallyTriggered,
+            this.isOpen,
             cond(
-              eq(this.drawerPosition, DIRECTION_LEFT),
-              // If swiped to right, open the drawer, otherwise close it
-              greaterThan(
-                cond(eq(this.velocityX, 0), this.gestureX, this.velocityX),
-                0
+              or(
+                and(
+                  greaterThan(abs(this.gestureX), SWIPE_DISTANCE_MINIMUM),
+                  greaterThan(abs(this.velocityX), this.swipeVelocityThreshold)
+                ),
+                greaterThan(abs(this.gestureX), this.swipeDistanceThreshold)
               ),
-              // If swiped to left, open the drawer, otherwise close it
-              lessThan(
-                cond(eq(this.velocityX, 0), this.gestureX, this.velocityX),
-                0
-              )
-            ),
-            this.isOpen
+              cond(
+                eq(this.drawerPosition, DIRECTION_LEFT),
+                // If swiped to right, open the drawer, otherwise close it
+                greaterThan(
+                  cond(eq(this.velocityX, 0), this.gestureX, this.velocityX),
+                  0
+                ),
+                // If swiped to left, open the drawer, otherwise close it
+                lessThan(
+                  cond(eq(this.velocityX, 0), this.gestureX, this.velocityX),
+                  0
+                )
+              ),
+              this.isOpen
+            )
           )
         ),
       ]
     ),
+    set(this.isSpringManuallyTriggered, FALSE),
     this.position,
   ]);
 
@@ -441,6 +448,7 @@ export default class DrawerView extends React.PureComponent<Props> {
 
   private toggleDrawer = (open: boolean) => {
     this.nextIsOpen.setValue(open ? TRUE : FALSE);
+    this.isSpringManuallyTriggered.setValue(TRUE);
 
     // This value will also be set shortly after as changing this.nextIsOpen changes this.isOpen
     // However, there's a race condition on Android, so we need to set a bit earlier
