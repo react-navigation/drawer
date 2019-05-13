@@ -499,7 +499,7 @@ export default class DrawerView extends React.PureComponent<Props> {
         // This lets the user drag the drawer from the side of the screen
         { right: 0, width: open ? undefined : swipeEdgeWidth }
       : { left: 0, width: open ? undefined : swipeEdgeWidth };
-    
+
     return (
       <PanGestureHandler
         ref={onGestureRef}
