@@ -3,7 +3,6 @@ import * as React from 'react';
 import { FlatList, I18nManager } from 'react-native';
 import { createAppContainer } from '@react-navigation/native';
 
-// eslint-disable-next-line import/named
 import { createStackNavigator } from 'react-navigation-stack';
 import { List, Divider } from 'react-native-paper';
 import { SimpleDrawer, SimpleDrawerUnmountInactive } from './src/SimpleDrawer';
