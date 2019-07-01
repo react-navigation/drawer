@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  AccessibilityRole,
+} from 'react-native';
 import { SafeAreaView } from '@react-navigation/native';
 import TouchableItem from './TouchableItem';
 import { Scene, Route } from '../types';
@@ -20,6 +27,9 @@ export type Props = {
   activeLabelStyle?: TextStyle;
   inactiveLabelStyle?: TextStyle;
   iconContainerStyle?: ViewStyle;
+  accessibilityLabel?: string;
+  accessibilityHint?: string;
+  accessibilityRole?: AccessibilityRole;
   drawerPosition: 'left' | 'right';
 };
 
@@ -42,6 +52,9 @@ const DrawerNavigatorItems = ({
   activeLabelStyle,
   inactiveLabelStyle,
   iconContainerStyle,
+  accessibilityLabel,
+  accessibilityHint,
+  accessibilityRole,
   drawerPosition,
 }: Props) => (
   <View style={[styles.container, itemsContainerStyle]}>
@@ -54,13 +67,24 @@ const DrawerNavigatorItems = ({
       const scene = { route, index, focused, tintColor: color };
       const icon = renderIcon(scene);
       const label = getLabel(scene);
-      const accessibilityLabel = typeof label === 'string' ? label : undefined;
+      const accessibleLabel =
+        typeof accessibilityLabel === 'string'
+          ? accessibilityLabel
+          : typeof label === 'string'
+          ? label
+          : undefined;
+      const accessibleHint =
+        typeof accessibilityHint === 'string' ? accessibilityHint : undefined;
+      const accessibleRole =
+        typeof accessibilityRole === 'string' ? accessibilityRole : undefined;
       const extraLabelStyle = focused ? activeLabelStyle : inactiveLabelStyle;
       return (
         <TouchableItem
           key={route.key}
           accessible
-          accessibilityLabel={accessibilityLabel}
+          accessibilityLabel={accessibleLabel}
+          accessibilityHint={accessibleHint}
+          accessibilityRole={accessibleRole}
           onPress={() => {
             onItemPress({ route, focused });
           }}
