@@ -105,7 +105,7 @@ export default class DrawerView extends React.PureComponent<Props> {
     statusBarAnimation: 'slide',
   };
 
-  componentDidUpdate(prevProps: Props) {
+  UNSAFE_componentDidUpdate(prevProps: Props) {
     const {
       open,
       drawerPosition,
@@ -157,7 +157,7 @@ export default class DrawerView extends React.PureComponent<Props> {
     }
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     this.toggleStatusBar(false);
   }
 

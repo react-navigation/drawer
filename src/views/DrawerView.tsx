@@ -80,11 +80,11 @@ export default class DrawerView extends React.PureComponent<Props, State> {
         : this.props.navigationConfig.drawerWidth,
   };
 
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     Dimensions.addEventListener('change', this.updateWidth);
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     Dimensions.removeEventListener('change', this.updateWidth);
   }
 
