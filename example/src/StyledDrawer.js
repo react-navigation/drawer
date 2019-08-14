@@ -4,7 +4,7 @@ import { Button, ScrollView, StatusBar, Text } from 'react-native';
 // eslint-disable-next-line import/named
 import { createStackNavigator } from 'react-navigation-stack';
 
-import { SafeAreaView } from '@react-navigation/native';
+import { Themed, SafeAreaView } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
@@ -21,7 +21,7 @@ const MyNavScreen = ({ navigation, banner }) => (
       />
       <Button onPress={() => navigation.navigate('Home')} title="Go back" />
     </SafeAreaView>
-    <StatusBar barStyle="default" />
+    <Themed.StatusBar />
   </ScrollView>
 );
 

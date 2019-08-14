@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import { SceneView } from '@react-navigation/core';
+import { ThemeColors, ThemeContext, SceneView } from '@react-navigation/core';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 import { ScreenContainer } from 'react-native-screens';
 
@@ -13,6 +13,8 @@ import ResourceSavingScene from '../views/ResourceSavingScene';
  * Component that renders the drawer.
  */
 export default class DrawerView extends React.PureComponent {
+  static contextType = ThemeContext;
+
   static defaultProps = {
     lazy: true,
   };
@@ -204,6 +206,25 @@ export default class DrawerView extends React.PureComponent {
     const { navigation } = this.props;
     const activeKey = navigation.state.routes[navigation.state.index].key;
     const { drawerLockMode } = this.props.descriptors[activeKey].options;
+    let { overlayColor, drawerBackgroundColor } = this.props.navigationConfig;
+
+    if (drawerBackgroundColor) {
+      drawerBackgroundColor =
+        typeof drawerBackgroundColor === 'string'
+          ? drawerBackgroundColor
+          : drawerBackgroundColor[this.context];
+    } else {
+      drawerBackgroundColor = ThemeColors[this.context].bodyContent;
+    }
+
+    if (overlayColor) {
+      overlayColor =
+        typeof overlayColor === 'string'
+          ? overlayColor
+          : overlayColor[this.context];
+    } else {
+      overlayColor = ThemeColors[this.context].bodyContent;
+    }
 
     return (
       <DrawerLayout
@@ -216,9 +237,8 @@ export default class DrawerView extends React.PureComponent {
           (this.props.screenProps && this.props.screenProps.drawerLockMode) ||
           this.props.navigationConfig.drawerLockMode
         }
-        drawerBackgroundColor={
-          this.props.navigationConfig.drawerBackgroundColor
-        }
+        drawerBackgroundColor={drawerBackgroundColor}
+        overlayColor={overlayColor}
         keyboardDismissMode={this.props.navigationConfig.keyboardDismissMode}
         drawerWidth={this.state.drawerWidth}
         onDrawerOpen={this._handleDrawerOpen}
@@ -237,7 +257,6 @@ export default class DrawerView extends React.PureComponent {
         hideStatusBar={this.props.navigationConfig.hideStatusBar}
         statusBarAnimation={this.props.navigationConfig.statusBarAnimation}
         minSwipeDistance={this.props.navigationConfig.minSwipeDistance}
-        overlayColor={this.props.navigationConfig.overlayColor}
         drawerContainerStyle={this.props.navigationConfig.drawerContainerStyle}
         contentContainerStyle={
           this.props.navigationConfig.contentContainerStyle

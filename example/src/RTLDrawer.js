@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 // eslint-disable-next-line import/named
+import { Themed } from '@react-navigation/native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
@@ -58,6 +59,7 @@ class RightDrawer extends Component {
             );
           })}
         </ScrollView>
+        <Themed.StatusBar barStyle="light-content" />
       </View>
     );
   }
@@ -66,7 +68,7 @@ class RightDrawer extends Component {
 const CategoryScreen = ({ navigation }) => {
   return (
     <View>
-      <Text>CategoryScreen {navigation.getParam('title')}</Text>
+      <Themed.Text>CategoryScreen {navigation.getParam('title')}</Themed.Text>
     </View>
   );
 };
