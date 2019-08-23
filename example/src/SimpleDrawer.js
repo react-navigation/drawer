@@ -1,17 +1,8 @@
 import React from 'react';
-import {
-  Button,
-  TextInput,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-// eslint-disable-next-line import/named
 import { createStackNavigator } from 'react-navigation-stack';
-import { ThemeContext, ThemeColors, useTheme } from '@react-navigation/core';
+import { ThemeColors, useTheme } from '@react-navigation/core';
 import { Themed, SafeAreaView } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { createDrawerNavigator } from 'react-navigation-drawer';

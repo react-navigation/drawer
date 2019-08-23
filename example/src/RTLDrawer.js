@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-// eslint-disable-next-line import/named
 import { Themed } from '@react-navigation/native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';

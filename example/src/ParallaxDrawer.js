@@ -3,12 +3,9 @@ import {
   Animated,
   Button,
   Dimensions,
-  TextInput,
   TouchableOpacity,
   ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 
