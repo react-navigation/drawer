@@ -48,7 +48,7 @@ export default class TouchableItem extends React.Component<Props> {
           {...rest}
           style={null}
           background={TouchableNativeFeedback.Ripple(
-            		this.props.rippleColor ? this.props.rippleColor: this.props.pressColor,
+            this.props.rippleColor ? this.props.rippleColor: this.props.pressColor,
             this.props.borderless
           )}
         >
