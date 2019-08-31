@@ -58,6 +58,7 @@ const DrawerNavigatorItems = ({
       const extraLabelStyle = focused ? activeLabelStyle : inactiveLabelStyle;
       return (
         <TouchableItem
+          rippleColor={itemStyle.rippleColor}
           key={route.key}
           accessible
           accessibilityLabel={accessibilityLabel}
