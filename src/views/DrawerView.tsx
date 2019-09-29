@@ -234,7 +234,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
       gestureHandlerProps,
     } = this.props.navigationConfig;
     const activeKey = navigation.state.routes[navigation.state.index].key;
-    const drawerLockMode = this.props.descriptors[activeKey].options || this.props.navigationConfig.drawerLockMode;
+    const drawerLockMode = this.props.descriptors[activeKey].options.drawerLockMode || this.props.navigationConfig.drawerLockMode;
 
     const drawerBackgroundColor = this.getDrawerBackgroundColor();
     const overlayColor = this.getOverlayColor();
