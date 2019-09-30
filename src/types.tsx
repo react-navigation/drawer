@@ -95,7 +95,7 @@ export type DrawerNavigatorItemsProps = {
   inactiveLabelStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<ViewStyle>;
   drawerPosition: 'left' | 'right';
-  screenProps?: ScreenProps;
+  screenProps: unknown;
 };
 
 export type DrawerContentComponentProps = DrawerNavigatorItemsProps & {
