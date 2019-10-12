@@ -36,22 +36,20 @@ export type DrawerLockMode = 'unlocked' | 'locked-closed' | 'locked-open';
 
 export type DrawerIconProps = {
   tintColor?: string;
-  focused: boolean
-}
+  focused: boolean;
+};
 
 export type DrawerLabelProps = {
   tintColor?: string;
-  focused: boolean
-}
+  focused: boolean;
+};
 
 export type NavigationDrawerOptions = {
   title?: string;
   drawerLabel?:
     | React.ReactNode
     | ((props: DrawerLabelProps) => React.ReactNode);
-  drawerIcon?:
-    | React.ReactNode
-    | ((props: DrawerIconProps) => React.ReactNode);
+  drawerIcon?: React.ReactNode | ((props: DrawerIconProps) => React.ReactNode);
   drawerLockMode?: DrawerLockMode;
 };
 
