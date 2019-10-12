@@ -32,15 +32,27 @@ export type NavigationDrawerProp<
   jumpTo: (routeName: string, key?: string) => void;
 };
 
+export type DrawerLockMode = 'unlocked' | 'locked-closed' | 'locked-open';
+
+export type DrawerIconProps = {
+  tintColor?: string;
+  focused: boolean
+}
+
+export type DrawerLabelProps = {
+  tintColor?: string;
+  focused: boolean
+}
+
 export type NavigationDrawerOptions = {
   title?: string;
   drawerLabel?:
     | React.ReactNode
-    | ((props: { tintColor?: string; focused: boolean }) => React.ReactNode);
+    | ((props: DrawerLabelProps) => React.ReactNode);
   drawerIcon?:
     | React.ReactNode
-    | ((props: { tintColor?: string; focused: boolean }) => React.ReactNode);
-  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
+    | ((props: DrawerIconProps) => React.ReactNode);
+  drawerLockMode?: DrawerLockMode;
 };
 
 export type NavigationDrawerConfig = {
@@ -50,7 +62,7 @@ export type NavigationDrawerConfig = {
   drawerWidth?: number | (() => number);
   drawerPosition?: 'left' | 'right';
   drawerType?: 'front' | 'back' | 'slide';
-  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
+  drawerLockMode?: DrawerLockMode;
   keyboardDismissMode?: 'none' | 'on-drag';
   swipeEdgeWidth?: number;
   swipeDistanceThreshold?: number;
