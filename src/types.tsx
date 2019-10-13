@@ -99,7 +99,7 @@ export type DrawerNavigatorItemsProps = {
 };
 
 export type DrawerContentComponentProps = DrawerNavigatorItemsProps & {
-  navigation: NavigationProp<NavigationDrawerState>;
+  navigation: NavigationScreenProp<NavigationDrawerState>;
   descriptors: SceneDescriptorMap;
   drawerOpenProgress: Animated.Node<number>;
   screenProps: unknown;
