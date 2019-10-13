@@ -3,8 +3,8 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 import {
   NavigationActions,
   NavigationRoute,
-  NavigationScreenProp
-} from "react-navigation";
+  NavigationScreenProp,
+} from 'react-navigation';
 import Animated from 'react-native-reanimated';
 import {
   Scene,

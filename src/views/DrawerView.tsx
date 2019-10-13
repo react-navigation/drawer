@@ -4,8 +4,8 @@ import {
   SceneView,
   ThemeColors,
   ThemeContext,
-  NavigationScreenProp
-} from "react-navigation";
+  NavigationScreenProp,
+} from 'react-navigation';
 import { ScreenContainer } from 'react-native-screens';
 
 import * as DrawerActions from '../routers/DrawerActions';
