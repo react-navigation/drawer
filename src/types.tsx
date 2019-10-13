@@ -3,7 +3,6 @@ import {
   NavigationState,
   NavigationRoute,
   NavigationParams,
-  NavigationProp,
   NavigationDescriptor,
   SupportedThemes,
   NavigationScreenConfig,
