@@ -432,17 +432,7 @@ export default class DrawerView extends React.PureComponent<Props> {
     },
   ]);
 
-  private handleTapStateChange = event([
-    {
-      nativeEvent: {
-        oldState: (s: Animated.Value<number>) =>
-          cond(
-            and(eq(s, State.ACTIVE), eq(this.isLocked, FALSE)),
-            set(this.manuallyTriggerSpring, TRUE)
-          ),
-      },
-    },
-  ]);
+  private handleTapStateChange = () => this.toggleDrawer(false);
 
   private handleContainerLayout = (e: LayoutChangeEvent) =>
     this.containerWidth.setValue(e.nativeEvent.layout.width);
