@@ -21,6 +21,9 @@ export { default as DrawerSidebar } from './views/DrawerSidebar';
 export { default as DrawerView } from './views/DrawerView';
 
 export { default as DrawerGestureContext } from './utils/DrawerGestureContext';
+export {
+  default as DrawerProgressContext,
+} from './utils/DrawerProgressContext';
 
 /**
  * Types
