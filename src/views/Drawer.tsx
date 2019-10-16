@@ -14,6 +14,7 @@ import {
   State,
 } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
+import DrawerProgressContext from '../utils/DrawerProgressContext';
 
 const {
   Clock,
@@ -513,6 +514,7 @@ export default class DrawerView extends React.PureComponent<Props> {
       : { left: 0, width: open ? undefined : swipeEdgeWidth };
 
     return (
+      <DrawerProgressContext.Provider value={this.progress} >
       <PanGestureHandler
         ref={onGestureRef}
         activeOffsetX={[-SWIPE_DISTANCE_MINIMUM, SWIPE_DISTANCE_MINIMUM]}
@@ -589,6 +591,7 @@ export default class DrawerView extends React.PureComponent<Props> {
           </Animated.View>
         </Animated.View>
       </PanGestureHandler>
+      </DrawerProgressContext.Provider>
     );
   }
 }
