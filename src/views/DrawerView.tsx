@@ -8,8 +8,9 @@ import {
 } from 'react-navigation';
 import { ScreenContainer } from 'react-native-screens';
 
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import * as DrawerActions from '../routers/DrawerActions';
-import DrawerSidebar from './DrawerSidebar';
+import DrawerContent from './DrawerContent';
 import DrawerGestureContext from '../utils/DrawerGestureContext';
 import ResourceSavingScene from './ResourceSavingScene';
 import Drawer from './Drawer';
@@ -18,7 +19,6 @@ import {
   DrawerContentComponentProps,
   SceneDescriptorMap,
 } from '../types';
-import { PanGestureHandler } from 'react-native-gesture-handler';
 
 type DrawerOptions = {
   drawerBackgroundColor?: string;
@@ -128,17 +128,26 @@ export default class DrawerView extends React.PureComponent<Props, State> {
   };
 
   private renderNavigationView = ({ progress }: any) => {
+    const {
+      navigationConfig,
+      navigation,
+      descriptors,
+      screenProps,
+    } = this.props;
+    const {
+      contentComponent: ContentComponent = DrawerContent,
+      drawerPosition
+      contentOptions,
+    } = navigationConfig;
+
     return (
-      <DrawerSidebar
-        screenProps={this.props.screenProps}
-        drawerOpenProgress={progress}
-        navigation={this.props.navigation}
-        descriptors={this.props.descriptors}
-        contentComponent={this.props.navigationConfig.contentComponent}
-        contentOptions={this.props.navigationConfig.contentOptions}
-        drawerPosition={this.props.navigationConfig.drawerPosition}
-        style={this.props.navigationConfig.style}
-        {...this.props.navigationConfig}
+      <ContentComponent
+        progress={progress}
+        navigation={navigation}
+        descriptors={descriptors}
+        screenProps={screenProps}
+        drawerPosition={drawerPosition}
+        {...contentOptions}
       />
     );
   };
