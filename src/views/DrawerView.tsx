@@ -104,6 +104,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
         key: navigation.state.key,
       })
     );
+    navigation.emit('drawerOpen');
   };
 
   private handleDrawerClose = () => {
@@ -114,6 +115,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
         key: navigation.state.key,
       })
     );
+    navigation.emit('drawerClose');
   };
 
   private updateWidth = () => {
