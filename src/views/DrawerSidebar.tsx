@@ -75,6 +75,7 @@ class DrawerSidebar extends React.PureComponent<Props> {
     if (focused) {
       // @ts-ignore
       this.props.navigation.closeDrawer();
+      this.props.navigation.emit('drawerClose');
     } else {
       this.props.navigation.dispatch(
         NavigationActions.navigate({ routeName: route.routeName })

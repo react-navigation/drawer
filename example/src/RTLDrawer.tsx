@@ -45,6 +45,7 @@ class RightDrawer extends Component<DrawerContentComponentProps> {
                     })
                   );
                   this.props.navigation.dispatch(DrawerActions.closeDrawer());
+                  this.props.navigation.emit('drawerClose');
                 }}
               >
                 <View
