@@ -26,13 +26,7 @@ const MyNavScreen = ({
   <ScrollView>
     <SafeAreaView forceInset={{ top: 'always' }}>
       <SampleText>{banner}</SampleText>
-      <Button
-        onPress={() => {
-          navigation.openDrawer();
-          navigation.emit('drawerOpen');
-        }}
-        title="Open drawer"
-      />
+      <Button onPress={() => navigation.openDrawer()} title="Open drawer" />
       <Button
         onPress={() => navigation.navigate('Email')}
         title="Open other screen"

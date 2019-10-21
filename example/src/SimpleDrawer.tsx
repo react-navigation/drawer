@@ -54,13 +54,7 @@ const MyNavScreen = ({
           }}
           placeholder="Focus this TextInput then drag the drawer!"
         />
-        <Button
-          onPress={() => {
-            navigation.openDrawer();
-            navigation.emit('drawerOpen');
-          }}
-          title="Open drawer"
-        />
+        <Button onPress={() => navigation.openDrawer()} title="Open drawer" />
         <Button
           onPress={() => navigation.toggleDrawer()}
           title="Toggle drawer"
@@ -68,28 +62,22 @@ const MyNavScreen = ({
         <Button
           onPress={() => {
             navigation.openDrawer();
-            navigation.emit('drawerOpen');
             navigation.closeDrawer();
-            navigation.emit('drawerClose');
           }}
           title="Open and immediately close"
         />
         <Button
           onPress={() => {
             navigation.closeDrawer();
-            navigation.emit('drawerClose');
             navigation.openDrawer();
-            navigation.emit('drawerOpen');
           }}
           title="Close and immediately open"
         />
         <Button
           onPress={() => {
             navigation.openDrawer();
-            navigation.emit('drawerOpen');
             setTimeout(() => {
               navigation.closeDrawer();
-              navigation.emit('drawerClose');
             }, 150);
           }}
           title="Open then close drawer shortly after"

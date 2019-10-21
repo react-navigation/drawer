@@ -34,13 +34,7 @@ const ContainerWithButtons = withNavigation(
           justifyContent: 'space-between',
         }}
       >
-        <Button
-          onPress={() => {
-            navigation.openDrawer();
-            navigation.emit('drawerOpen');
-          }}
-          title="Open drawer"
-        />
+        <Button title="Open drawer" onPress={() => navigation.openDrawer()} />
         <Button title="Go back" onPress={() => navigation.navigate('Home')} />
       </View>
     </View>
