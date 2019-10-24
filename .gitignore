@@ -34,7 +34,7 @@ project.xcworkspace
 .idea
 .gradle
 local.properties
-
+,
 # node.js
 #
 node_modules/
