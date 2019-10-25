@@ -34,4 +34,7 @@ export {
   NavigationDrawerScreenProps,
   NavigationDrawerScreenComponent,
   DrawerContentComponentProps,
+  DrawerLockMode,
+  DrawerIconProps,
+  DrawerLabelProps,
 } from './types';
