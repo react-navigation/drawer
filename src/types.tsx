@@ -55,6 +55,7 @@ export type NavigationDrawerOptions = {
 
 export type NavigationDrawerConfig = {
   contentComponent?: React.ComponentType<DrawerContentComponentProps>;
+  sceneComponent?: React.ComponentType<DrawerSceneComponentProps>;
   edgeWidth?: number;
   minSwipeDistance?: number;
   drawerWidth?: number | (() => number);
@@ -110,8 +111,8 @@ export type DrawerNavigatorItemsProps = {
 
 export type DrawerSceneComponentProps = {
   drawerOpenProgress: Animated.Node<number>;
-  children: ReactNode;
-}
+  children?: ReactNode;
+};
 
 export type DrawerContentComponentProps = DrawerNavigatorItemsProps & {
   navigation: NavigationScreenProp<NavigationDrawerState>;

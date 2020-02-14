@@ -171,7 +171,11 @@ export default class DrawerView extends React.PureComponent<Props, State> {
     );
   };
 
-  private renderContent = ({ progress }: { progress: Animated.Node<number> }) => {
+  private renderContent = ({
+    progress,
+  }: {
+    progress: Animated.Node<number>;
+  }) => {
     let { lazy, navigation } = this.props;
     let { loaded } = this.state;
     let { routes } = navigation.state;
@@ -179,22 +183,19 @@ export default class DrawerView extends React.PureComponent<Props, State> {
     if (this.props.navigationConfig.unmountInactiveRoutes) {
       let activeKey = navigation.state.routes[navigation.state.index].key;
       let descriptor = this.props.descriptors[activeKey];
-      if (SceneWrapper) {
-        return (
-          <SceneWrapper drawerOpenProgress={progress}>
-            <SceneView
-              navigation={descriptor.navigation}
-              screenProps={this.props.screenProps}
-              component={descriptor.getComponent()}
-            />
-          </SceneWrapper>
-        );
-      }
+      const Component = descriptor.getComponent();
+      const component = SceneWrapper
+        ? (props: any) => (
+            <SceneWrapper drawerOpenProgress={progress}>
+              <Component {...props} />
+            </SceneWrapper>
+          )
+        : descriptor.getComponent();
       return (
         <SceneView
           navigation={descriptor.navigation}
           screenProps={this.props.screenProps}
-          component={descriptor.getComponent()}
+          component={component}
         />
       );
     } else {
@@ -208,6 +209,14 @@ export default class DrawerView extends React.PureComponent<Props, State> {
 
             let isFocused = navigation.state.index === index;
             let descriptor = this.props.descriptors[route.key];
+            const Component = descriptor.getComponent();
+            const component = SceneWrapper
+              ? (props: any) => (
+                  <SceneWrapper drawerOpenProgress={progress}>
+                    <Component {...props} />
+                  </SceneWrapper>
+                )
+              : descriptor.getComponent();
 
             return (
               <ResourceSavingScene
@@ -218,23 +227,11 @@ export default class DrawerView extends React.PureComponent<Props, State> {
                 ]}
                 isVisible={isFocused}
               >
-                {
-                  SceneWrapper ? (
-                    <SceneWrapper drawerOpenProgress={progress}>
-                      <SceneView
-                        navigation={descriptor.navigation}
-                        screenProps={this.props.screenProps}
-                        component={descriptor.getComponent()}
-                      />
-                    </SceneWrapper>
-                  ) : (
-                    <SceneView
-                      navigation={descriptor.navigation}
-                      screenProps={this.props.screenProps}
-                      component={descriptor.getComponent()}
-                    />
-                  )
-                }
+                <SceneView
+                  navigation={descriptor.navigation}
+                  screenProps={this.props.screenProps}
+                  component={component}
+                />
               </ResourceSavingScene>
             );
           })}
