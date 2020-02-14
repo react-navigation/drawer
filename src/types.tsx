@@ -9,6 +9,7 @@ import {
 } from 'react-navigation';
 import { StyleProp, ViewStyle, TextStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
+import { ReactNode } from 'react';
 
 export type Scene = {
   route: NavigationRoute;
@@ -106,6 +107,11 @@ export type DrawerNavigatorItemsProps = {
   drawerPosition: 'left' | 'right';
   screenProps: unknown;
 };
+
+export type DrawerSceneComponentProps = {
+  drawerOpenProgress: Animated.Node<number>;
+  children: ReactNode;
+}
 
 export type DrawerContentComponentProps = DrawerNavigatorItemsProps & {
   navigation: NavigationScreenProp<NavigationDrawerState>;

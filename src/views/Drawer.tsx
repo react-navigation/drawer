@@ -70,7 +70,9 @@ const SPRING_CONFIG = {
 
 type Binary = 0 | 1;
 
-type Renderer = (props: { progress: Animated.Node<number> }) => React.ReactNode;
+type Renderer = (props: {
+  progress: Animated.Node<number>;
+}) => React.ReactNode;
 
 type Props = {
   open: boolean;

@@ -16,9 +16,11 @@ import Drawer from './Drawer';
 import {
   NavigationDrawerState,
   DrawerContentComponentProps,
+  DrawerSceneComponentProps,
   SceneDescriptorMap,
 } from '../types';
 import { PanGestureHandler } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
 
 type DrawerOptions = {
   drawerBackgroundColor?: string;
@@ -45,6 +47,7 @@ type Props = {
   descriptors: SceneDescriptorMap;
   navigationConfig: DrawerOptions & {
     contentComponent?: React.ComponentType<DrawerContentComponentProps>;
+    sceneComponent?: React.ComponentType<DrawerSceneComponentProps>;
     unmountInactiveRoutes?: boolean;
     contentOptions?: object;
   };
@@ -168,15 +171,25 @@ export default class DrawerView extends React.PureComponent<Props, State> {
     );
   };
 
-  private renderContent = () => {
+  private renderContent = ({ progress }: { progress: Animated.Node<number> }) => {
     let { lazy, navigation } = this.props;
     let { loaded } = this.state;
     let { routes } = navigation.state;
-
+    const SceneWrapper = this.props.navigationConfig.sceneComponent;
     if (this.props.navigationConfig.unmountInactiveRoutes) {
       let activeKey = navigation.state.routes[navigation.state.index].key;
       let descriptor = this.props.descriptors[activeKey];
-
+      if (SceneWrapper) {
+        return (
+          <SceneWrapper drawerOpenProgress={progress}>
+            <SceneView
+              navigation={descriptor.navigation}
+              screenProps={this.props.screenProps}
+              component={descriptor.getComponent()}
+            />
+          </SceneWrapper>
+        );
+      }
       return (
         <SceneView
           navigation={descriptor.navigation}
@@ -205,11 +218,23 @@ export default class DrawerView extends React.PureComponent<Props, State> {
                 ]}
                 isVisible={isFocused}
               >
-                <SceneView
-                  navigation={descriptor.navigation}
-                  screenProps={this.props.screenProps}
-                  component={descriptor.getComponent()}
-                />
+                {
+                  SceneWrapper ? (
+                    <SceneWrapper drawerOpenProgress={progress}>
+                      <SceneView
+                        navigation={descriptor.navigation}
+                        screenProps={this.props.screenProps}
+                        component={descriptor.getComponent()}
+                      />
+                    </SceneWrapper>
+                  ) : (
+                    <SceneView
+                      navigation={descriptor.navigation}
+                      screenProps={this.props.screenProps}
+                      component={descriptor.getComponent()}
+                    />
+                  )
+                }
               </ResourceSavingScene>
             );
           })}
