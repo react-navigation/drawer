@@ -176,26 +176,27 @@ export default class DrawerView extends React.PureComponent<Props, State> {
   }: {
     progress: Animated.Node<number>;
   }) => {
-    let { lazy, navigation } = this.props;
+    let { lazy, navigation, descriptors } = this.props;
     let { loaded } = this.state;
     let { routes } = navigation.state;
-    const SceneWrapper = this.props.navigationConfig.sceneComponent;
+    const SceneComponent = this.props.navigationConfig.sceneComponent;
+    if (SceneComponent) {
+      return (
+        <SceneComponent
+          screenProps={this.props.screenProps}
+          drawerOpenProgress={progress}
+          {...{descriptors, navigation}}
+        />
+      )
+    }
     if (this.props.navigationConfig.unmountInactiveRoutes) {
       let activeKey = navigation.state.routes[navigation.state.index].key;
       let descriptor = this.props.descriptors[activeKey];
-      const Component = descriptor.getComponent();
-      const component = SceneWrapper
-        ? (props: any) => (
-            <SceneWrapper drawerOpenProgress={progress}>
-              <Component {...props} />
-            </SceneWrapper>
-          )
-        : descriptor.getComponent();
       return (
         <SceneView
           navigation={descriptor.navigation}
           screenProps={this.props.screenProps}
-          component={component}
+          component={descriptor.getComponent()}
         />
       );
     } else {
@@ -209,15 +210,6 @@ export default class DrawerView extends React.PureComponent<Props, State> {
 
             let isFocused = navigation.state.index === index;
             let descriptor = this.props.descriptors[route.key];
-            const Component = descriptor.getComponent();
-            const component = SceneWrapper
-              ? (props: any) => (
-                  <SceneWrapper drawerOpenProgress={progress}>
-                    <Component {...props} />
-                  </SceneWrapper>
-                )
-              : descriptor.getComponent();
-
             return (
               <ResourceSavingScene
                 key={route.key}
@@ -230,7 +222,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
                 <SceneView
                   navigation={descriptor.navigation}
                   screenProps={this.props.screenProps}
-                  component={component}
+                  component={descriptor.getComponent()}
                 />
               </ResourceSavingScene>
             );
