@@ -1,3 +1,7 @@
+This package has been moved to https://github.com/react-navigation/react-navigation/tree/4.x/packages/drawer
+
+---
+
 # React Navigation Drawer
 
 [![npm version](https://badge.fury.io/js/react-navigation-drawer.svg)](https://npmjs.org/react-navigation-drawer) [![CircleCI badge](https://circleci.com/gh/react-navigation/drawer/tree/master.svg?style=shield)](https://circleci.com/gh/react-navigation/drawer/tree/master) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactnavigation.org/docs/contributing.html)
