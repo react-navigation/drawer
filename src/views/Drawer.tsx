@@ -175,7 +175,9 @@ export default class Drawer extends React.PureComponent<Props> {
   private position = new Value<number>(0);
 
   private containerWidth = new Value<number>(0);
-  private drawerWidth = new Value<number>(0);
+  private drawerWidth = new Value<number>(
+    this.props.drawerStyle && this.props.drawerStyle.width ? Number(this.props.drawerStyle.width) : 0
+  );
   private drawerOpacity = new Value<number>(0);
   private drawerPosition = new Value<number>(
     this.props.drawerPosition === 'right' ? DIRECTION_RIGHT : DIRECTION_LEFT
